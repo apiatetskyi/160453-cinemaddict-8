@@ -1,4 +1,14 @@
 /**
+ * Returns random number from range
+ * @param  {number} min
+ * @param  {number} max
+ * @return {number}
+ */
+const getRandom = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+/**
  * Returns fragment with nodes, created from valid HTML string
  * @param {string} htmlString
  * @param {Function} [appendedNodesCallback]
@@ -20,4 +30,4 @@ const getNode = (htmlString, appendedNodesCallback) => {
   return fragment;
 };
 
-export default {getNode};
+export default {getNode, getRandom};

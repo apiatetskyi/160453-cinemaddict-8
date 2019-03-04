@@ -1,5 +1,7 @@
 import filter from './filter';
+import movie from './movie';
 
+const MOVIE_CARDS_COUNT = 2;
 
 const filterData = [
   {
@@ -27,5 +29,10 @@ const filterData = [
     isAdditional: true,
   },
 ];
-const filterContainer = document.querySelector(`.main-navigation`);
-filterContainer.appendChild(filter.getList(filterData));
+const filtersContainer = document.querySelector(`.main-navigation`);
+const movieContainers = document.querySelectorAll(`.films-list__container`);
+
+filtersContainer.appendChild(filter.getList(filterData));
+movieContainers.forEach((container) => {
+  container.appendChild(movie.getList(MOVIE_CARDS_COUNT));
+});

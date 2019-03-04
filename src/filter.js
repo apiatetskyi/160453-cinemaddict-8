@@ -1,4 +1,15 @@
 import utils from './utils';
+import movie from './movie';
+
+const filterClickHandler = () => {
+  const mainMovieContainer = document.querySelector(`.films-list .films-list__container`);
+
+  while (mainMovieContainer.firstChild) {
+    mainMovieContainer.removeChild(mainMovieContainer.firstChild);
+  }
+
+  mainMovieContainer.appendChild(movie.getList(utils.getRandom(4, 10)));
+};
 
 /**
  * Returns string with markup for one filter
@@ -29,7 +40,9 @@ const getList = (filtersData) => {
     return markup + getMarkup(data);
   }, ``);
 
-  return utils.getNode(filtersHtml);
+  return utils.getNode(filtersHtml, (node) => {
+    node.addEventListener(`click`, filterClickHandler);
+  });
 };
 
 
