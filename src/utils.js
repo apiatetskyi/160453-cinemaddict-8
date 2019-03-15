@@ -30,4 +30,27 @@ const getNode = (htmlString, appendedNodesCallback) => {
   return fragment;
 };
 
-export default {getNode, getRandom};
+/**
+ * Randomly shuffle an array
+ * @param  {Array} array
+ * @return {Array}
+ */
+const shuffleArray = function (array) {
+
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
+export default {getNode, getRandom, shuffleArray};
