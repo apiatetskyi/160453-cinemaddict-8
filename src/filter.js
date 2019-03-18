@@ -27,13 +27,13 @@ export default class Filter {
     this._onClickHandler = handler.bind(this);
   }
 
-  _bind() {
+  bind() {
     this._element.addEventListener(`click`, this._onClickHandler);
   }
 
   render() {
     this._element = utils.createElement(this.template);
-    this._bind();
+    this.bind();
     return this._element;
   }
 }
