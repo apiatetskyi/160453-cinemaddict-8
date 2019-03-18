@@ -1,49 +1,39 @@
 import utils from './utils';
-import movie from './movie';
 
-const filterClickHandler = () => {
-  const mainMovieContainer = document.querySelector(`.films-list .films-list__container`);
-
-  while (mainMovieContainer.firstChild) {
-    mainMovieContainer.removeChild(mainMovieContainer.firstChild);
+export default class Filter {
+  constructor(data) {
+    this._element = null;
+    this._id = data.id ? data.id : data.title.toLowerCase().replace(` `, `-`);
+    this._title = data.title;
+    this._count = data.count;
+    this._state = {
+      isActive: data.isActive,
+      isAdditional: data.isAdditional,
+    };
   }
 
-  mainMovieContainer.appendChild(movie.getList(utils.getRandom(4, 10)));
-};
-
-/**
- * Returns string with markup for one filter
- * @param {Object} filter
- * @return {string}
- */
-const getMarkup = (filter) => {
-  const id = filter.id ? filter.id : filter.title.toLowerCase().replace(` `, `-`);
-
-  return `
-    <a href="#${id}"
-       class="main-navigation__item ${filter.isActive ? filter.isActive : ``}
-              ${filter.isAdditional ? `main-navigation__item--additional` : ``}"
+  get template() {
+    return `
+    <a href="#${this._id}"
+       class="main-navigation__item ${this._state.isActive ? this._state.isActive : ``}
+              ${this._state.isAdditional ? `main-navigation__item--additional` : ``}"
     >
-      ${filter.title}
-      ${filter.count ? `<span class="main-navigation__item-count">${filter.count}</span>` : ``}
+      ${this._title}
+      ${this._count ? `<span class="main-navigation__item-count">${this._count}</span>` : ``}
     </a>`;
-};
+  }
 
+  set onClick(handler) {
+    this._onClickHandler = handler.bind(this);
+  }
 
-/**
- * Returns fragment with list of filter nodes
- * @param {Object} filtersData
- * @return {Node}
- */
-const getList = (filtersData) => {
-  const filtersHtml = filtersData.reduce((markup, data) => {
-    return markup + getMarkup(data);
-  }, ``);
+  bind() {
+    this._element.addEventListener(`click`, this._onClickHandler);
+  }
 
-  return utils.getNode(filtersHtml, (node) => {
-    node.addEventListener(`click`, filterClickHandler);
-  });
-};
-
-
-export default {getMarkup, getList};
+  render() {
+    this._element = utils.createElement(this.template);
+    this.bind();
+    return this._element;
+  }
+}
