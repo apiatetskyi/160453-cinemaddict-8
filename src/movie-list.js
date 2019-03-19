@@ -14,12 +14,14 @@ export default class MovieList {
     this._moviesData.forEach((data) => {
       const movie = new Movie(data);
       this._movies.push(movie);
+
       movie.onClick = () => {
         const popup = new MoviePopup(data);
 
         popup.onClick = () => {
-          popup.remove();
+          popup.unRender();
         };
+
         document.body.appendChild(popup.render());
       };
 
@@ -33,12 +35,8 @@ export default class MovieList {
     this._moviesData = newData;
 
     if (this._movies) {
+      this._movies.forEach((movie) => movie.unRender());
       this._movies = [];
-
-      while (this._element.firstChild) {
-        this._element.removeChild(this._element.firstChild);
-      }
-
       this.render();
     } else {
       this.render();

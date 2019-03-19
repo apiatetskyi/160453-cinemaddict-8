@@ -1,8 +1,8 @@
-import utils from './utils';
+import Component from './component';
 
-export default class Filter {
+export default class Filter extends Component {
   constructor(data) {
-    this._element = null;
+    super();
     this._id = data.id ? data.id : data.title.toLowerCase().replace(` `, `-`);
     this._title = data.title;
     this._count = data.count;
@@ -31,9 +31,7 @@ export default class Filter {
     this._element.addEventListener(`click`, this._onClickHandler);
   }
 
-  render() {
-    this._element = utils.createElement(this.template);
-    this.bind();
-    return this._element;
+  unbind() {
+    this._element.removeEventListener(`click`, this._onClickHandler);
   }
 }
