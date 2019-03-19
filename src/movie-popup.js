@@ -1,10 +1,11 @@
 import utils from './utils';
+import Component from './component';
 
 const MINUTES_IN_HOUR = 60;
 
-export default class MoviePopup {
+export default class MoviePopup extends Component {
   constructor(data) {
-    this._element = null;
+    super();
     this._poster = data.poster;
     this._title = data.title;
     this._description = data.description;
@@ -230,17 +231,5 @@ export default class MoviePopup {
 
   unbind() {
     this._element.querySelector(`.film-details__close-btn`).removeEventListener(`click`, this._onClickHandler);
-  }
-
-  render() {
-    this._element = utils.createElement(this.template);
-    this.bind();
-    return this._element;
-  }
-
-  remove() {
-    this._element.parentNode.removeChild(this._element);
-    this.unbind();
-    this._element = null;
   }
 }

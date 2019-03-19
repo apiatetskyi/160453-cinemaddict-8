@@ -1,8 +1,8 @@
-import utils from "./utils";
+import Component from './component';
 
-export default class Movie {
+export default class Movie extends Component {
   constructor(data) {
-    this._element = null;
+    super();
     this._poster = data.poster;
     this._title = data.title;
     this._description = data.description;
@@ -66,9 +66,7 @@ export default class Movie {
     this._element.querySelector(`.film-card__comments`).addEventListener(`click`, this._onClickHandler);
   }
 
-  render() {
-    this._element = utils.createElement(this.template);
-    this.bind();
-    return this._element;
+  unbind() {
+    this._element.querySelector(`.film-card__comments`).removeEventListener(`click`, this._onClickHandler);
   }
 }
