@@ -17,6 +17,8 @@ export default class Component {
 
   unbind() {}
 
+  update() {}
+
   render() {
     this._element = utils.createElement(this.template);
     this.bind();
