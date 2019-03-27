@@ -1,5 +1,5 @@
 const MIN_RATING = 1;
-const MAX_RATING = 10;
+const MAX_RATING = 9;
 const MIN_GENRES = 1;
 const MAX_GENRES = 3;
 
@@ -71,7 +71,16 @@ const generateData = () => {
       isWatched: Math.random() >= 0.5,
       forWatching: Math.random() >= 0.5,
     },
-    comments: getRandom(0, 20)
+    comments: [
+      {
+        message: `1 kasjdh faksjdhf`,
+        emoji: `sleeping`,
+      },
+      {
+        message: `2 kasjdh faksjdhf`,
+        emoji: `sleeping`,
+      }
+    ]
   };
 };
 

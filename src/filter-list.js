@@ -15,10 +15,12 @@ export default class FilterList {
     this._filtersData.forEach((data) => {
       const filter = new Filter(data);
 
-      filter.onClick = () => {
-        const emptyArray = new Array(utils.getRandom(4, 10)).fill(``);
-        this._bound.update(emptyArray.map(() => utils.generateData()));
-      };
+      if (!data.isAdditional) {
+        filter.onClick = () => {
+          const emptyArray = new Array(utils.getRandom(4, 10)).fill(``);
+          this._bound.update(emptyArray.map(() => utils.generateData()));
+        };
+      }
 
       fragment.appendChild(filter.render());
 

@@ -13,13 +13,20 @@ export default class MovieList {
 
     this._moviesData.forEach((data) => {
       const movie = new Movie(data);
+      const popup = new MoviePopup(data);
+
       this._movies.push(movie);
 
       movie.onClick = () => {
-        const popup = new MoviePopup(data);
-
-        popup.onClick = () => {
+        popup.onClose = (newData) => {
+          movie.bind();
+          movie.update(newData);
           popup.unRender();
+        };
+
+        popup.onCommentAdd = (comment) => {
+          movie._comments.push(comment);
+          movie._element.querySelector(`.film-card__comments`).textContent = `${movie._comments.length} comments`;
         };
 
         document.body.appendChild(popup.render());
